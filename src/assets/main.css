@@ -1,0 +1,15 @@
+.flex {
+    display: flex;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.align-end {
+    align-items: center;
+}
