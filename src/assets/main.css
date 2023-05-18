@@ -6,6 +6,10 @@
     justify-content: space-between;
 }
 
+.justify-end {
+    justify-content: end;
+}
+
 .w-40 {
     width: 40%;
 }

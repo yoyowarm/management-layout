@@ -44,6 +44,11 @@
   font-weight: 600;
   margin-right: 15px
 }
+@media (max-width:720px) {
+  .total {
+    margin-right: 0px;
+  }
+}
 i {
   cursor: pointer;
   font-weight: 700;

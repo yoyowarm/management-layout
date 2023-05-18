@@ -32,6 +32,7 @@ import bookmarkIcon from '../assets/icon/bookmark.svg'
 import commentIcon from '../assets/icon/comment.svg'
 import shareIcon from '../assets/icon/share.svg'
 import likeIcon from '../assets/icon/like.svg'
+
 export default {
   data() {
     return {
@@ -71,6 +72,14 @@ export default {
     }
     span {
       white-space: nowrap;
+    }
+  }
+}
+@media (max-width:720px) {
+  .action {
+    flex-direction: column;
+    div {
+      margin-bottom: 8px;
     }
   }
 }

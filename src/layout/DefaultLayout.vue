@@ -3,13 +3,13 @@
     <el-row class="head">
       <el-col :span="4">
         <div class="flex align-end">
-          <el-button type="text" @click="isCollapse = !isCollapse"><img src="../assets/icon/hamber.svg" width="20px"/></el-button>
-          <img src="../assets/Lgog.png" width="164px" class="logo" alt="">
+          <el-button type="text" @click="() => {if(windowWidth >= 720) isCollapse = !isCollapse}"><img src="../assets/icon/hamber.svg" width="20px"/></el-button>
+          <img  src="../assets/Lgog.png" :width="windowWidth > 720 ? '164px' : '90px'" class="logo" alt="">
         </div>
       </el-col>
       <el-col :span="20">
-        <div class="flex justify-between">
-          <div class="flex">
+        <div class="flex " :class="{'justify-between': windowWidth > 1355,'justify-end': windowWidth <= 1355 }" style="height:50px">
+          <div class="flex" v-if="windowWidth > 1355">
             <el-input placeholder="Search here..." v-model="searchInput" class="input-with-select">
              <img :src="searchIcon" slot="append" width="18px" style="margin-top: 3px; cursor: pointer;"/>
            </el-input>
@@ -22,9 +22,9 @@
              </el-option>
            </el-select>
           </div>
-          <div class="flex justify-between w-40">
-            <div class="flex">
-              <div class="flex weather">
+          <div class="flex justify-between" :class="{'w-40': windowWidth > 1355 }">
+            <div class="flex" v-if="windowWidth > 695">
+              <div class="flex weather" >
                 <img :src="weatherIcon"/>
                 <span>09:54 am</span>
               </div>
@@ -39,11 +39,11 @@
             </div>
             <div class="flex">
               <img :src="settingIcon" width="25px" style="cursor: pointer;"/>
-              <img :src="ringIcon" width="22px" style="cursor: pointer;margin-left:40px"/>
+              <img :src="ringIcon" width="22px" style="cursor: pointer" :style="{'margin-left': windowWidth > 695 ? '40px' : '10px', 'margin-right': windowWidth > 695  ? '0px': '20px'  }"/>
             </div>
             <div class="flex avatar">
               <img :src="userImg" class="user"/>
-              <img :src="arrowIcon"/>
+              <img :src="arrowIcon" width="12px"/>
             </div>
           </div>
         </div>
@@ -57,6 +57,7 @@
       </div>
     </el-col>
   </el-row>
+  <WindowResizeListener @resize="handleResize"/>
   </div>
 </template>
 
@@ -68,9 +69,11 @@ import settingIcon from '../assets/icon/setting.svg'
 import ringIcon from '../assets/icon/ring.svg'
 import userImg from '../assets/avatar.png'
 import arrowIcon from '../assets/icon/arrow.svg'
+import WindowResizeListener from '@/components/WindowResizeListener.vue'
 export default {
   components: {
-    LeftNavigation
+    LeftNavigation,
+    WindowResizeListener
   },
   data () {
     return {
@@ -81,6 +84,7 @@ export default {
       ringIcon,
       userImg,
       arrowIcon,
+      windowWidth: '',
       searchInput: '',
       selectBy: 'all',
       place: 'Antananarivo',
@@ -96,6 +100,17 @@ export default {
         {label: 'Tokyo', value: 'Tokyo'},
       ]
     }
+  },
+  methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth
+      if (window.innerWidth <= 695) {
+        this.isCollapse = true
+      }
+    },
+  },
+  created() {
+    this.handleResize()
   }
 }
 </script>
@@ -108,6 +123,15 @@ export default {
 .logo {
   height: 35px;
   margin-left: 20px
+}
+@media (max-width: 720px) {
+  .head {
+    padding: 20px;
+    padding-bottom: 0px
+  }
+  .logo {
+    height: auto;
+  }
 }
 .select {
   width: 101px;
@@ -158,6 +182,7 @@ export default {
 .input-with-select /deep/ .el-input__inner {
   border: 1px solid #737791;
   border-right: 0px;
+  height: 50px
 }
 /deep/ .el-input__inner:focus {
   border-color: #737791;
@@ -166,6 +191,7 @@ export default {
   border-right: 1px;
   border: 1px solid #737791;
   border-color: #737791!important;
+  height: 50px;
 }
 .citySelect /deep/ .el-input__inner{
   border: none;

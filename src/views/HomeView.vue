@@ -6,7 +6,7 @@
         <el-breadcrumb-item>My Collection</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="flex filter">
+    <div class="flex filter" >
       <InputGroup title="Category">
         <el-select v-model="selectBy" placeholder="Select">
           <el-option
@@ -25,7 +25,7 @@
       </InputGroup>
     </div>
     <div class="collection">
-      <div class="flex justify-between align-end">
+      <div class="flex justify-between align-end" style="margin-bottom: 20px">
         <h2>My Collection</h2>
         <PaginationGroup/>
       </div>
@@ -82,6 +82,13 @@ export default {
   background-color: #fff;
   display: flex;
   align-items: center;
+}
+@media (max-width:695px) {
+  .filter {
+    flex-direction: column;
+    height: auto;
+    align-items: start;
+  }
 }
 .filter > div { margin-right: 12px;}
 .search {
